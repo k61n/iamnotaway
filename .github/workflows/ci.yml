@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  win_build:
+    name: Builds for Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PSScriptAnalyzer module
+        shell: pwsh
+        run: |
+          Write-Output "Test 1"
+      - name: Install mingw
+        shell: pwsh
+        run: |
+          choco install mingw --version=8.1.0
+          gcc.exe -v
+      - run: gcc.exe -v
