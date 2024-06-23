@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  win_build:
+    name: build for windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run cmake
+        shell: pwsh
+        run: |
+          cmake.exe -G "MinGW Makefiles" .
+          cmake.exe --build .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iamnotaway
+          path: iamnotaway.exe
